@@ -1,0 +1,11 @@
+import json
+import pandas as pd
+
+jsondata = json.loads ('/Users/jamessiscaretti/repo/APITesting/resources/results.json')
+opendata = str(jsondata)
+print(opendata)
+
+#jdata = json.loads(opendata)
+#df = pd.DataFrame(jdata)
+
+#print(df.T)

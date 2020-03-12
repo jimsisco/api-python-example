@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.7.3 on darwin)" generated="20191012 19:41:19.847" rpa="false">
+<suite id="s1" name="APITest" source="/Users/jamessiscaretti/repo/APITesting/resources/APITest.robot">
+<test id="s1-t1" name="Get Requests">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Authorization=ccece5ff3fa5fec76ccd1b0ef6f40e51</arg>
+<arg>Content-Type=application/json</arg>
+<arg>Accept=appicaiton/jason</arg>
+</arguments>
+<assign>
+<var>${headers1}</var>
+</assign>
+<msg timestamp="20191012 19:41:20.571" level="INFO">${headers1} = {'Authorization': 'ccece5ff3fa5fec76ccd1b0ef6f40e51', 'Content-Type': 'application/json', 'Accept': 'appicaiton/jason'}</msg>
+<status status="PASS" starttime="20191012 19:41:20.569" endtime="20191012 19:41:20.571"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>data={stationWithEvaId(evaId:8000105){name}}</arg>
+</arguments>
+<assign>
+<var>${data1}</var>
+</assign>
+<msg timestamp="20191012 19:41:20.572" level="INFO">${data1} = {'data': '{stationWithEvaId(evaId:8000105){name}}'}</msg>
+<status status="PASS" starttime="20191012 19:41:20.571" endtime="20191012 19:41:20.572"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>getsched</arg>
+<arg>https://api.deutschebahn.com</arg>
+</arguments>
+<msg timestamp="20191012 19:41:20.573" level="INFO">Creating Session using : alias=getsched, url=https://api.deutschebahn.com, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20191012 19:41:20.572" endtime="20191012 19:41:20.573"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>getsched</arg>
+<arg>/freeplan/v1/location/F</arg>
+<arg>headers=${headers1}</arg>
+</arguments>
+<assign>
+<var>${resp1}</var>
+</assign>
+<msg timestamp="20191012 19:41:21.505" level="INFO">Get Request using : alias=getsched, uri=/freeplan/v1/location/F, headers={'Authorization': 'ccece5ff3fa5fec76ccd1b0ef6f40e51', 'Content-Type': 'application/json', 'Accept': 'appicaiton/jason'} json=None</msg>
+<msg timestamp="20191012 19:41:21.505" level="INFO">/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20191012 19:41:21.506" level="INFO">${resp1} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20191012 19:41:20.574" endtime="20191012 19:41:21.506"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>getsched</arg>
+<arg>/freeplan/v1/graphql</arg>
+<arg>headers=${headers1}</arg>
+</arguments>
+<assign>
+<var>${resp2}</var>
+</assign>
+<msg timestamp="20191012 19:41:21.692" level="INFO">Post Request using : alias=getsched, uri=/freeplan/v1/graphql, data=&lt;empty&gt;, headers={'Authorization': 'ccece5ff3fa5fec76ccd1b0ef6f40e51', 'Content-Type': 'application/json', 'Accept': 'appicaiton/jason'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20191012 19:41:21.692" level="INFO">/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/urllib3/connectionpool.py:851: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20191012 19:41:21.692" level="INFO">${resp2} = &lt;Response [500]&gt;</msg>
+<status status="PASS" starttime="20191012 19:41:21.506" endtime="20191012 19:41:21.692"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp1.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20191012 19:41:21.693" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20191012 19:41:21.693" endtime="20191012 19:41:21.693"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${resp1.json()}</arg>
+</arguments>
+<assign>
+<var>${list1}</var>
+</assign>
+<msg timestamp="20191012 19:41:21.695" level="INFO">${list1} = [{'name': 'Frankfurt(Main)Hbf', 'lon': 8.663785, 'lat': 50.107149, 'id': 8000105}, {'name': 'Freiburg(Breisgau) Hbf', 'lon': 7.841174, 'lat': 47.997696, 'id': 8000107}, {'name': 'FRANKFURT(MAIN)', 'lo...</msg>
+<status status="PASS" starttime="20191012 19:41:21.694" endtime="20191012 19:41:21.695"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${list1}</arg>
+</arguments>
+<msg timestamp="20191012 19:41:21.696" level="INFO">[{'name': 'Frankfurt(Main)Hbf', 'lon': 8.663785, 'lat': 50.107149, 'id': 8000105}, {'name': 'Freiburg(Breisgau) Hbf', 'lon': 7.841174, 'lat': 47.997696, 'id': 8000107}, {'name': 'FRANKFURT(MAIN)', 'lon': 8.663785, 'lat': 50.107149, 'id': 8096021}, {'name': 'Frankfurt(M) Flughafen Fernbf', 'lon': 8.570181, 'lat': 50.053169, 'id': 8070003}, {'name': 'Frankfurt(M)Flughafen', 'lon': 8.570972, 'lat': 50.05121, 'id': 8000281}, {'name': 'Fulda', 'lon': 9.68398, 'lat': 50.554722, 'id': 8000115}, {'name': 'Flughafen Düsseldorf', 'lon': 6.767286, 'lat': 51.277707, 'id': 8096014}, {'name': 'Fürth(Bay)Hbf', 'lon': 10.989987, 'lat': 49.469706, 'id': 8000114}, {'name': 'Frankfurt(Main)Süd', 'lon': 8.686456, 'lat': 50.099365, 'id': 8002041}, {'name': 'Freilassing', 'lon': 12.977196, 'lat': 47.836915, 'id': 8000108}, {'name': 'Flensburg', 'lon': 9.436525, 'lat': 54.774043, 'id': 8000103}, {'name': 'Frankfurt(Oder)', 'lon': 14.546497, 'lat': 52.33642, 'id': 8010113}, {'name': 'Frankfurt(M) Flughafen Terminal 1-P36', 'lon': 8.577381, 'lat': 50.052837, 'id': 8089361}, {'name': 'Frankfurt(Main)West', 'lon': 8.639335, 'lat': 50.118862, 'id': 8002042}, {'name': 'Friedberg(Hess)', 'lon': 8.762056, 'lat': 50.332608, 'id': 8000111}, {'name': 'Flughafen Köln/Bonn', 'lon': 7.119304, 'lat': 50.8789, 'id': 8003330}, {'name': 'Forbach(F)', 'lon': 6.900255, 'lat': 49.189216, 'id': 8700271}, {'name': 'Frankfurt(M) Flughafen Regionalbf', 'lon': 8.57125, 'lat': 50.051219, 'id': 8070004}, {'name': 'Fischen', 'lon': 10.271713, 'lat': 47.45659, 'id': 8001995}, {'name': 'Fehmarn-Burg', 'lon': 11.188981, 'lat': 54.443591, 'id': 8001274}, {'name': 'Friedrichshafen Stadt', 'lon': 9.473902, 'lat': 47.65322, 'id': 8000112}, {'name': 'Freyburg(Unstrut)', 'lon': 11.767311, 'lat': 51.209083, 'id': 8011573}, {'name': 'Fröttstädt', 'lon': 10.573022, 'lat': 50.930355, 'id': 8010118}, {'name': 'Falkensee-Seegefeld', 'lon': 13.116808, 'lat': 52.552476, 'id': 8081586}, {'name': 'Fangschleuse', 'lon': 13.824924, 'lat': 52.406725, 'id': 8011533}, {'name': 'Feldkirchen(b München)', 'lon': 11.7321, 'lat': 48.151843, 'id': 8001973}, {'name': 'Fürstenberg(Havel)', 'lon': 13.139272, 'lat': 53.186782, 'id': 8010399}, {'name': 'Fürstenwalde(Spree)', 'lon': 14.059641, 'lat': 52.366858, 'id': 8010120}, {'name': 'Fortezza/Franzensfeste', 'lon': 11.610081, 'lat': 46.788719, 'id': 8300089}, {'name': 'Fredericia st', 'lon': 9.738814, 'lat': 55.568087, 'id': 8600623}, {'name': 'FIRENZE', 'lon': 11.249928, 'lat': 43.765835, 'id': 8396001}, {'name': 'Firenze S.M.N.', 'lon': 11.247807, 'lat': 43.776811, 'id': 8300151}, {'name': 'Feldkirch', 'lon': 9.604102, 'lat': 47.240975, 'id': 8100197}, {'name': 'Fieberbrunn', 'lon': 12.52894, 'lat': 47.491136, 'id': 8100053}, {'name': 'Flughafen Wien', 'lon': 16.563074, 'lat': 48.120902, 'id': 8100353}, {'name': 'Frantiskovy Lazne', 'lon': 12.355323, 'lat': 50.124454, 'id': 5400197}]</msg>
+<status status="PASS" starttime="20191012 19:41:21.695" endtime="20191012 19:41:21.696"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${list1}</arg>
+</arguments>
+<status status="PASS" starttime="20191012 19:41:21.696" endtime="20191012 19:41:21.699"></status>
+</kw>
+<kw name="Create File" library="OperatingSystem">
+<doc>Creates a file with the given content and encoding.</doc>
+<arguments>
+<arg>results.json</arg>
+<arg>${list1}</arg>
+<arg>encoding=UTF-8</arg>
+</arguments>
+<msg timestamp="20191012 19:41:21.704" level="INFO" html="yes">Created file '&lt;a href="file:///Users/jamessiscaretti/repo/APITesting/resources/results.json"&gt;/Users/jamessiscaretti/repo/APITesting/resources/results.json&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20191012 19:41:21.702" endtime="20191012 19:41:21.704"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${resp2.json()}</arg>
+</arguments>
+<assign>
+<var>${list2}</var>
+</assign>
+<msg timestamp="20191012 19:41:21.706" level="FAIL">Resolving variable '${resp2.json()}' failed: JSONDecodeError: Expecting value: line 1 column 1 (char 0)</msg>
+<status status="FAIL" starttime="20191012 19:41:21.705" endtime="20191012 19:41:21.706"></status>
+</kw>
+<status status="FAIL" starttime="20191012 19:41:20.568" endtime="20191012 19:41:21.706" critical="yes">Resolving variable '${resp2.json()}' failed: JSONDecodeError: Expecting value: line 1 column 1 (char 0)</status>
+</test>
+<doc>A resource file with reusable keywords and variables.
+
+The system specific keywords created here form our own
+domain specific language. They utilize keywords provided
+by the imported SeleniumLibrary.</doc>
+<status status="FAIL" starttime="20191012 19:41:19.849" endtime="20191012 19:41:21.709"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tests</stat>
+<stat pass="0" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="APITest">APITest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
